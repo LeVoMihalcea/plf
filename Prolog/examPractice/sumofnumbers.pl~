@@ -1,0 +1,40 @@
+reverseList(L, K) :- inside(L, K, []).
+
+inside([], Output, Output).
+inside([H|T], Output, Acumulator) :-
+    inside(T, Output, [H|Acumulator]).
+
+wrapperSuma(L, B, O) :-
+    reverseList(L, O1),
+    reverseList(B, O2),
+    sumOfNumbers(O1, O2, 0, O3),
+    reverseList(O3, O).
+
+sumOfNumbers([], [], 0, []).
+sumOfNumbers([], [], 1, [1]).
+sumOfNumbers([], [H|T], Carry, Output) :-
+    H1 is H + Carry,
+    Output = [H1|T].
+sumOfNumbers([H|T], [], Carry, Output) :-
+    H1 is H + Carry,
+    Output = [H1|T].
+sumOfNumbers([H1|T1], [H2|T2], Carry, Output) :- H1 + H2 + Carry < 9,
+    Next is H1 + H2 + Carry,
+    sumOfNumbers(T1, T2, 0, Output1),
+    Output = [Next|Output1].
+sumOfNumbers([H1|T1], [H2|T2], Carry, Output) :- H1 + H2 + Carry > 9,
+    Next is H1 + H2 + Carry - 10,
+    sumOfNumbers(T1, T2, 1, Output1),
+    Output = [Next|Output1].
+
+successor([K], Output) :- K < 9,
+    K1 is K + 1,
+    Output = [K1].
+successor([K], Output) :- K =:= 9,
+    Output = [0, 1].
+successor([H|T], Output) :- H < 9,
+    Next is H + 1,
+    Output = [Next|T].
+successor([H|T], Output) :- H =:= 9,
+    successor(T, Output1),
+    Output = [0|Output1].

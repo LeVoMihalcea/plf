@@ -1,0 +1,4 @@
+addToEnd([], ToAdd, [ToAdd]).
+
+addToEnd([H|T], ToAdd, Output) :-
+    addToEnd(T, ToAdd, [H|Output]).

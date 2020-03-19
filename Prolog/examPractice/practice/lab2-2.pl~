@@ -1,0 +1,2 @@
+lenList([], 0).
+lenList([H|T], N) :- lenList(T, N1), N is 1+N1.

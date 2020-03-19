@@ -1,0 +1,17 @@
+list2set([] , []).
+list2set([E|Es] , Set ) :-
+   member(E, Es) ,
+   list2set(Es , Set).
+list2set([E|Es] , [E|Set] ) :-
+   maplist(dif(E), Es),
+   list2set(Es , Set).
+
+
+
+
+
+
+
+
+
+
